@@ -1,0 +1,43 @@
+
+<app-navbar></app-navbar>
+
+<div class="body">
+    <form class="form">
+        <p class="title">Compte</p>
+        <p class="message">Informations sur votre compte</p>
+
+        <label>
+            <span>Adresse mail</span>
+            <input required="" placeholder="insérer votre adresse mail" type="email" class="input" value="johndoe@mail.com" disabled="disabled">
+        </label> 
+
+        <label>
+            <span>Prénom</span>
+            <input required="" placeholder="insérer votre prenom" type="text" class="input" value="{{FirstnameResult}}" disabled="disabled">
+        </label>
+
+        <label>
+            <span>Nom</span>
+            <input required="" placeholder="Insérer votre nom" type="text" class="input" value="{{UserResult}}" disabled="disabled">
+        </label>
+
+        <label>
+            <span>Age</span>
+            <input required="" placeholder="Insérer votre age" type="text" class="input" value="21" disabled="disabled">
+        </label>
+
+        <label>
+            <span>Mot de passe</span>
+            <input required="" placeholder="Insérer votre mot de passe" type="password" class="input" value="password123" disabled="disabled">
+        </label>
+        <!-- <label>
+            <input required="" placeholder="" type="password" class="input">
+            <span>Confirmer le mot de passe</span>
+        </label> -->
+
+            <!-- <button class="submit">Sauvgarder</button> -->
+            <button class="submit">Modifier</button>                    <!-- Pas de component en plus ! -->
+            <button class="delete">Supprimer votre compte</button>
+
+    </form>
+</div>

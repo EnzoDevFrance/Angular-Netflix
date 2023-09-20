@@ -1,0 +1,21 @@
+<!-- ######################### WEBDEV simplified ######################### -->
+
+<div class="row">
+    <div class="header">
+      <h3 class="title">Title</h3>
+    </div>
+    <div class="container">
+      <button (click)="nextSlide()" class="switchLeft handle right-handle"><i class="fa-solid fa-angle-right" style="color: #ffffff;"></i></button>
+      <div class="slider" #slider>
+        <ng-container *ngFor="let movie of movies">
+          <img
+            [routerLink]="['/movie-detail',movie.id]"
+            src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}"
+            alt="Describe Image">
+          <!-- <h1 class="heading">{{t.title}}</h1>
+          <p class="duration">Duration: 10 min</p> -->
+        </ng-container>
+      </div>
+      <button (click)="previousSlide()" class="switchRight handle left-handle"><i class="fa-solid fa-angle-left" style="color: #ffffff;"></i></button>
+    </div>
+  </div>

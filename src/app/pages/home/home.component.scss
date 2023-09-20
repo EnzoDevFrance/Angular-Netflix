@@ -1,0 +1,380 @@
+
+
+*{
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+/*-------------------------------- Banner -----------------------------------*/
+
+.banner {
+    position: relative;
+  img{
+    height: 90%;
+    width: 100%;
+    background-image: linear-gradient(transparent,rgb(20,20,20));
+  }
+  .bannerDesc{
+    position: absolute;
+    left: 4%;
+    bottom: 25%;
+    color: white;
+    p{
+      width: 45%;
+    }
+  }
+}
+
+
+/*--------------------------- Final Carou -----------------------------------*/
+
+.wrapp{
+    max-width: screen;
+    overflow: hidden;
+    overflow-x: scroll;
+    position:relative;
+
+    //margin-left: 10px;
+    display: flex;
+    align-items: center;
+
+  i:first-child{
+    left: -2px;
+  }
+  i:last-child{
+      right: -23px;
+  }
+  .carou {
+    white-space: nowrap;
+    display: flex;
+
+img{
+      margin-left: 5px;
+      height: 340px;
+      cursor: pointer;
+      //width: calc(1200px/6);
+      width: 260px;
+
+    }
+    img:first-child{
+      margin-left: 0px;
+    }
+  }
+
+  button{
+    z-index: 10;
+    
+  }
+  .switchRight{
+    position: absolute;
+    left: 50px;
+    height: 100%;
+    width: 45px;
+    line-height: 250px;
+    text-align: center;
+    display : flex;
+    align-items: center;
+  }
+
+}
+
+//  .wrapp::-webkit-scrollbar {
+//    display: none;
+//  }
+
+
+
+/* ----------------------- WEBDEV CSS -------------------------*/
+
+
+$handle-size: 3rem;
+$img-gap: .25rem;
+$items-per-screen: 7;
+$button-width: $handle-size;  // Ici, j'utilise la taille du handle comme la largeur du bouton
+
+.container {
+  width: calc(100vw - 2 * $button-width);
+  overflow: hidden;
+  overflow-x: scroll;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.slider {
+  white-space: nowrap;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+
+  img {
+    margin-left: 5px;
+    height: 340px;
+    cursor: pointer;
+    width: calc((100% - (#{$items-per-screen} - 1) * 5px) / #{$items-per-screen});  // Ici, j'ai utilisé 5px qui est la marge de gauche des images
+  }
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.handle {
+  border: none;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, .25);
+  z-index: 10;
+  margin: $img-gap 0;
+  width: $handle-size;
+  cursor: pointer;
+  font-size: 5rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  line-height: 0;
+  transition: background-color 150ms ease-in-out;
+}
+
+.left-handle {
+  left: 0;
+}
+
+.right-handle {
+  right: 0;
+}
+
+.row {
+  .header {
+    display: flex;
+    justify-content: flex-start;
+    padding: .5rem ($img-gap * 2 + $handle-size);
+    align-items: center;
+
+    .title {
+      font-size: 2rem;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .slider {
+    $items-per-screen: 3;  // Pour les écrans plus petits
+    
+    img {
+      width: calc((100% - (#{$items-per-screen} - 1) * 5px) / #{$items-per-screen});
+    }
+  }
+}
+
+
+
+
+
+
+#featured {
+  display: flex;
+  width: 100%;
+  height: 56.25vw;
+  padding: 0 4%;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 0;
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: -1;
+    background: no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: local;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 14.7vw;
+      background-image: linear-gradient(
+        to bottom,
+        rgba(20, 20, 20, 0) 0,
+        rgba(20, 20, 20, 0.15) 15%,
+        rgba(20, 20, 20, 0.35) 29%,
+        rgba(20, 20, 20, 0.58) 44%,
+        #141414 68%,
+        #141414 100%
+      );
+    }
+  }
+
+  .content-info {
+    position: absolute;
+    bottom: 35%;
+    left: 4%;
+    width: 36%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .content-title {
+      font-size: 4.8vw;
+      color: #fff;
+    }
+
+    .content-description {
+      font-size: 1.8vw;
+      font-weight: 400;
+      color: #fff;
+    }
+
+    .roww {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-top: 1.6rem;
+
+      button {
+        background-color: #fff;
+        font-weight: 500;
+        font-size: 1.2rem;
+        border-radius: 4px;
+        color: #000;
+        padding: 0.8rem;
+        padding-left: 2rem;
+        padding-right: 2.4rem;
+        white-space: nowrap;
+
+        i {
+          margin-right: 0.5rem;
+        }
+
+        &.info {
+          background-color: rgba(110, 110, 110, 0.7);
+          color: #fff;
+        }
+
+        &.play {
+          margin-right: 0.6rem;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $handle-size: 3rem;
+// $img-gap: .25rem;
+// $items-per-screen: 7;
+
+// .container {
+//   width: screen;
+//   //width: calc(100% - 2 * #{$handle-size});
+//   overflow: hidden;
+//   overflow-x: scroll;
+//   position:relative;
+//   //margin-left: 10px;
+//   display: flex;
+//   align-items: center;
+
+//  }
+
+// .slider {
+//   white-space: nowrap;
+//   display: flex;
+//   // display: flex;
+//   transition: transform 0.5s ease-in-out;
+
+//   img {
+//     margin-left: 5px;
+//     height: 340px;
+//     cursor: pointer;
+//     //width: calc(1200px/6);
+//     width: 260px;
+//     // flex: 0 0 calc(100% / var(--items-per-screen));
+//     //  max-width: calc(100% / var(--items-per-screen));
+//     // padding: var(--img-gap);
+//     // height: 100%;
+//     // margin-left: 4px;
+//   }
+// }
+// .container::-webkit-scrollbar {
+//   display: none;
+// }
+
+// .handle {
+//   border: none;
+//   border-radius: 1rem;
+//   background-color: rgba(255, 255, 255, .25);
+//   z-index: 10;
+//   margin: var($img-gap) 0;
+//   width: var($handle-size);
+//   cursor: pointer;
+//   font-size: 5rem;
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   color: white;
+//   line-height: 0;
+//   transition: background-color 150ms ease-in-out;
+// }
+
+// .left-handle {
+//   left: 0;
+// }
+
+// .right-handle {
+//   right: 0;
+// }
+
+// .row {
+//   .header {
+//     display: flex;
+//     justify-content: flex-start;
+//     padding: .5rem calc(var($img-gap) * 2 + var($handle-size));
+//     align-items: center;
+
+//     .title {
+//       font-size: 2rem;
+//       margin: 0;
+//     }
+//   }
+// }
+
+// @media (max-width: 1000px) {
+//   .slider {
+//     --items-per-screen: 3;
+//   }
+// }
+
+
+
+
+
+ 
+
+

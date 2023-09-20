@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<section id="featured">
+  <div class="background" [style.backgroundImage]="'url(https://image.tmdb.org/t/p/original/' + bannerResult[0]?.backdrop_path + ')'"></div>
+  <div class="content-info">
+    <div class="content-title">{{bannerResult[0].title}}</div>
+    <div class="content-description">
+      {{shortOverview(bannerResult[0].overview)}}
+    </div>
+    <div class="roww">
+      <button [routerLink]="['/movie-detail',bannerResult[0].id]" class="play"><i class="fas fa-play"></i> Play</button>
+      <button class="info">
+        <i class="fas fa-info-circle"></i> More Info
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ######################### Début Banner ######################### -->
+<!-- <section class="banner" *ngIf="bannerResult && bannerResult.length > 1">
+  <img src="https://image.tmdb.org/t/p/original/{{bannerResult[0].backdrop_path}}" alt="">
+  <div class="bannerDesc">
+    <h1>{{bannerResult[0].title}}</h1>
+    <p>{{shortOverview(bannerResult[0].overview)}}</p>
+    <button [routerLink]="['/movie-detail',bannerResult[0].id]">Voir détails</button>
+  </div>
+</section> -->
+<!-- ######################### Fin Banner ######################### -->
+
+<!-- ######################### Début Caroussel Trending ######################### -->
+
+<!-- <app-caroussel [movies]="trendingMovieResult"></app-caroussel> -->
+
+<!-- ######################### Fin Caroussel Trending ######################### -->
+
+<!--------------------------------- Début Caroussel Final ---------------------------------------->
+
+  <div class="wrapp">
+    <button (click)="scrollRight()" class="switchLeft handle right-handle"><i class="fa-solid fa-angle-left" style="color: #ffffff;"></i></button>
+    
+  <div class="carou" #carou>
+    <section>
+      <ng-container *ngFor="let t of trendingMovieResult.slice(0,7)">
+        <img
+          [routerLink]="['/movie-detail',t.id]"
+          src="https://image.tmdb.org/t/p/original/{{t.poster_path}}"
+          alt="Describe Image">
+        <!-- <h1 class="heading">{{t.title}}</h1>
+        <p class="duration">Duration: 10 min</p> -->
+      </ng-container>
+    </section>
+    <section>
+      <ng-container *ngFor="let t of trendingMovieResult.slice(7,14)">
+        <img
+          [routerLink]="['/movie-detail',t.id]"
+          src="https://image.tmdb.org/t/p/original/{{t.poster_path}}"
+          alt="Describe Image">
+        <!-- <h1 class="heading">{{t.title}}</h1>
+        <p class="duration">Duration: 10 min</p> -->
+      </ng-container>
+    </section>
+    <section>
+      <ng-container *ngFor="let t of trendingMovieResult.slice(14,20)">
+        <img
+          [routerLink]="['/movie-detail',t.id]"
+          src="https://image.tmdb.org/t/p/original/{{t.poster_path}}"
+          alt="Describe Image">
+        <!-- <h1 class="heading">{{t.title}}</h1>
+        <p class="duration">Duration: 10 min</p> -->
+      </ng-container>
+    </section>
+  </div>
+  
+  <button (click)="scrollLeft()" class="switchRight handle left-handle"><i class="fa-solid fa-angle-right" style="color: #ffffff;"></i></button>
+</div>
+
+<!--------------------------------- Fin Caroussel ---------------------------------------->
+
+
