@@ -1,0 +1,29 @@
+<nav [style.backgroundColor]="NavColor">
+    <ul class="left-side">
+        <li><img [routerLink]="['']" src="../assets/Netflix-logo.png" alt=""></li>
+        <li [routerLink]="['']">Accueil</li>
+        <li [routerLink]="['']">Ma liste</li>
+    </ul>
+    <ul class="right-side">
+        <li><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></li>
+        <li><i class="fa-regular fa-bell" style="color: #ffffff;"></i></li>
+        
+
+
+             <li class="profile-dropdown">
+              <div class="dropdown-trigger">
+                  <img src="../assets/profil1.jpg" alt="">
+                  <i class="fa-solid fa-caret-down" style="color: #ffffff;"></i>
+              </div>
+            <ul class="dropdown">
+                <li [routerLink]="['']"><img src="../assets/profil1.jpg" alt=""><p>John</p></li>
+                <li [routerLink]="['']"><img src="../assets/profil1.jpg" alt=""><p>John</p></li>
+                <li [routerLink]="['']"><img src="../assets/profil1.jpg" alt=""><p>John</p></li>
+                <li [routerLink]="['/account']"><i class="fa-solid fa-user" style="color: #ffffff;"></i><p>Compte</p></li>
+                <li [routerLink]="['/login']">Se déconnecter</li>
+            </ul>
+        </li>
+    </ul>
+  </nav>
+
+  

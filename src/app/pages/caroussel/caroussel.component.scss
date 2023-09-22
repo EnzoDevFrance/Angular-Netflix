@@ -1,0 +1,90 @@
+$handle-size: 3rem;
+$img-gap: .25rem;
+$items-per-screen: 7;
+$button-width: $handle-size;  // Ici, j'utilise la taille du handle comme la largeur du bouton
+
+.container {
+  width: calc(100vw - 2 * $button-width);
+  overflow: hidden;
+  overflow-x: scroll;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.slider {
+  white-space: nowrap;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+
+  img {
+    margin-left: 5px;
+    height: 340px;
+    cursor: pointer;
+    width: calc((100% - (#{$items-per-screen} - 1) * 5px) / #{$items-per-screen});  // Ici, j'ai utilisé 5px qui est la marge de gauche des images
+  }
+}
+
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+.handle {
+  border: none;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, .25);
+  z-index: 10;
+  margin: $img-gap 0;
+  width: $handle-size;
+  cursor: pointer;
+  font-size: 5rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  line-height: 0;
+  transition: background-color 150ms ease-in-out;
+}
+
+.switchRight{
+    position: absolute;
+    left: 50px;
+    height: 100%;
+    width: 45px;
+    line-height: 250px;
+    text-align: center;
+    display : flex;
+    align-items: center;
+  }
+
+.left-handle {
+  left: 0;
+}
+
+.right-handle {
+  right: 0;
+}
+
+.row {
+  .header {
+    display: flex;
+    justify-content: flex-start;
+    padding: .5rem ($img-gap * 2 + $handle-size);
+    align-items: center;
+
+    .title {
+      font-size: 2rem;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .slider {
+    $items-per-screen: 3;  // Pour les écrans plus petits
+    
+    img {
+      width: calc((100% - (#{$items-per-screen} - 1) * 5px) / #{$items-per-screen});
+    }
+  }
+}
