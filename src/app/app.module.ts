@@ -16,7 +16,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { SwiperModule } from 'swiper/angular';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     RegisterComponent,
     LoginComponent,
     NavbarComponent,
+    FooterComponent,
     
 
 
@@ -41,6 +43,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     BrowserAnimationsModule,
     FormsModule,
     MatDialogModule,
+    SwiperModule,
+
     
   ],
   providers: [MovieApiService],

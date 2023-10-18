@@ -11,23 +11,26 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class MovieDetailComponent implements OnInit{
 
-  constructor(private home:HomeComponent, private route:ActivatedRoute,private serviceAPI:MovieApiService,@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<MovieDetailComponent>) {
+  constructor(private home:HomeComponent, private route:ActivatedRoute,private service:MovieApiService,@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<MovieDetailComponent>) {
   }
- @Input() getMovieDetailResult: any;
-
+getMovieDetailResult: any;
+currentMovieId: number | null = null;
   ngOnInit(): void {
-   const movieId: number= +this.route.snapshot.params['id'];         // va chercher l'Id directement dans l'url
-   //this.= this.serviceAPI.getMovieDetails(movieId);
-    this.resultDetailMovie(movieId);
+  // const movieId: number= +this.route.snapshot.params['id'];         // va chercher l'Id directement dans l'url
+  //this.resultDetailMovie(movieId);
 
+      this.resultDetailMovie();
   }
 
-  resultDetailMovie(id: any) {
-    console.log('Received ID:', id);
-    this.serviceAPI.getMovieDetails(id).subscribe((result) => {
-      if (result) {
-        this.getMovieDetailResult = result;
-      }
+resultDetailMovie() {
+    this.service.currentMovieId.subscribe(id => {
+      this.currentMovieId = id;
+      console.log('Received ID:', id);
+      this.service.getMovieDetails(id).subscribe((result) => {
+        if (result) {
+          this.getMovieDetailResult = result;
+        }
+      });
     });
   }
 
