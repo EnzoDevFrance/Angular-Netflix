@@ -6,12 +6,13 @@ import { AccountComponent } from './pages/account/account.component';
 import { ChooseSessionComponent } from './pages/choose-session/choose-session.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {path:'',component:HomeComponent},
-  {path:'movie-detail/:id', component:MovieDetailComponent},
-  {path:'account',component:AccountComponent},
-  {path:'choose-session',component:ChooseSessionComponent},
+  {path:'',component:HomeComponent, canActivate:[authGuard]},
+  {path:'movie-detail/:id', component:MovieDetailComponent, canActivate:[authGuard]},
+  {path:'account',component:AccountComponent, canActivate:[authGuard]},
+  {path:'choose-session',component:ChooseSessionComponent, canActivate:[authGuard]},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
 ];

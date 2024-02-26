@@ -4,6 +4,10 @@ $dropdown-highlight: dodgerblue;
 $dropdown-width: 160px;
 $dropdown-background: rgb(20,20,20,0.75);
 
+*{
+    margin: 0;
+    padding: 0;
+}
 
 nav {
     display: flex;
@@ -98,6 +102,7 @@ nav {
                         background-color: #422e2e;
                     }
 
+
                     img {
                         margin-right: 10px;
                         height: 35px;
@@ -119,4 +124,6 @@ nav {
         }
     }
 }
+
+
 

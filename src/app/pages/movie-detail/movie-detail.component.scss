@@ -26,40 +26,11 @@ html {
 }
 
 /* Modal */
-#wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $white;
-  min-height: 100vh;
-  background-color: $background;
 
-  > button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.8rem;
-    cursor: pointer;
-    max-height: 42px;
-    min-height: 32px;
-    font-size: 1.6rem;
-    appearance: none;
-    border: 0;
-    border-radius: 4px;
-    padding-left: 2rem;
-    padding-right: 2.4rem;
-    background-color: $white;
-    color: $background;
-    font-weight: 700;
-    line-height: 2.4rem;
-    position: absolute;
-    z-index: 1;
 
-    svg {
-      margin-right: 10px;
-    }
-  }
-}
+
+
+
 
 .modal {
   display: flex;
@@ -94,6 +65,7 @@ html {
       width: 100%;
       height: 100%;
       opacity: 1;
+      object-fit: cover;
     }
 
     .close {
@@ -136,6 +108,7 @@ html {
         > h1 {
           width: 40%;
           margin-bottom: 0.5em;
+          color: #ffffff;
         }
 
         .header-buttons {
@@ -217,6 +190,7 @@ html {
     grid-template-columns: 2fr 1fr;
     column-gap: 10px;
     padding: 15px 48px;
+    color: #ffffff;
 
     .modal-content-first {
       padding-right: 40px;

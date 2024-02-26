@@ -6,64 +6,45 @@
 
   <div class="centred">
     <div class="box">
-      <form>
+      <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
         <h2 class="heading">Sign In</h2>
-        <input type="email"
-               class="form_input"
-               id="email"
-               name="email"
-               placeholder="Email or phone number">
-           <div id="feedback"></div>
 
-        <input type="text"
-               class="form_input"
-               id="password"
-               name="nom"
-               placeholder="Nom">
+        <input type="email" class="form_input" formControlName="email" placeholder="Email or phone number">
+        <div *ngIf="registerForm.get('email')?.errors?.['email']" id="feedback" id="feedback">Email invalide</div>
 
-        <input type="text"
-               class="form_input"
-               id="password"
-               name="prénom"
-               placeholder="Prénom">
+        <input type="text" class="form_input" formControlName="lastname" placeholder="Nom">
 
-        <input type="text"
-               class="form_input"
-               id="password"
-               name="age"
-               placeholder="Age">
+        <input type="text" class="form_input" formControlName="firstname" placeholder="Prénom">
 
-        <input type="password"
-               class="form_input"
-               id="password"
-               name="password"
-               placeholder="Password">
-        <div id="feedback2"></div>
+        <input type="text" class="form_input" formControlName="age" placeholder="Age">
+
+        <input type="password" class="form_input" formControlName="password" placeholder="Password">
+        <div *ngIf="registerForm.get('password')?.errors?.['pattern']" id="feedback2">
+          Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.
+        </div>
+
+        <div class="btn">
+          <button type="submit" class="sign_in">Sign In</button>
+        </div>
+
+        <div class="flex">
+          <label for="checkbox">
+            <input type="checkbox" class="_check" id="checkbox" name="checkbox"> Remember me
+          </label>
+
+          <a class="left" href="">Need help?</a>
+        </div>
+
+        <div class="more">
+          <span class="new">New to Netflix? <a class="sign" href="">Sign up now.</a></span>
+          <p class="paragraph">
+            This page is protected by Google reCAPTCHA to ensure you're not a bot. <a href="" class="blue">Learn
+              more.</a>
+          </p>
+        </div>
       </form>
 
-      <div class="btn">
-        <button type="submit" class="sign_in" id="button">Sign In</button>
-      </div>
 
-      <div class="flex"> 
-        <label for="checkbox">
-          <input type="checkbox"
-                 class="_check"
-                 id="checkbox"
-                 name="checkbox"
-                 > Remember me
-        </label>
-
-        <a class="left" href="">Need help?</a>
-      </div>
-
-      <div class="more">
-        <span class="new">New to Netflix? <a class="sign" href="">Sign up now.</a></span>
-
-        <p class="paragraph">
-          This page is protected by Google reCAPTCHA to ensure you're not a bot. <a href="" class="blue">Learn more.</a> 
-        </p>
-      </div>
 
     </div>
   </div>

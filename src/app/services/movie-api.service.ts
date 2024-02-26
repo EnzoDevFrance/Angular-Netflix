@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieApiService {
 
+  private movieIdSource = new BehaviorSubject<number | null>(null);
+  currentMovieId = this.movieIdSource.asObservable();
+
   constructor( private http: HttpClient) {
   }
   baseURL = "https://api.themoviedb.org/3";
   apiKey = "6481a891cc0c2904c45c4f15f63ea6af"
+
+  changeMovieId(id: number) {
+    this.movieIdSource.next(id);
+  }
 
   bannerApiData():Observable<any>{
     return this.http.get(`${this.baseURL}/trending/all/day?api_key=${this.apiKey}`)

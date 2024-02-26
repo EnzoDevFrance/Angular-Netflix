@@ -4,6 +4,11 @@ import {Router} from "@angular/router";
 import { HttpErrorResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MovieDetailComponent } from '../movie-detail/movie-detail.component';
+import Swiper from 'swiper';
+import { ViewEncapsulation } from '@angular/core';
+import * as $ from 'jquery';
 
 
 @Injectable({
@@ -13,56 +18,16 @@ import { catchError } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
-export class HomeComponent implements OnInit,AfterViewInit{
+export class HomeComponent implements OnInit{
 
-  constructor(private service: MovieApiService,private router:Router,private renderer: Renderer2, private elementRef: ElementRef){}
 
- @ViewChild('carou', { static: false }) carouselElement!: ElementRef;
+  constructor(private service: MovieApiService,private router:Router,private renderer: Renderer2, private elementRef: ElementRef,public dialog: MatDialog){
 
- ngAfterViewInit() {
-
- }
-
-//############################################################################################################################################################
-    scrollLeft() {
-      const firstSlide = this.carouselElement.nativeElement.children[0];
-      const lastSlide = this.carouselElement.nativeElement.children[this.carouselElement.nativeElement.children.length - 1];
-  
-      this.carouselElement.nativeElement.appendChild(firstSlide.cloneNode(true));
-      this.carouselElement.nativeElement.style.transition = 'transform 0.5s ease';
-      this.carouselElement.nativeElement.style.transform = `translateX(-${firstSlide.offsetWidth}px)`;
-      
-      // Attendre que l'animation se termine, puis réinitialiser la position du carrousel et supprimer la première diapositive clonée
-      setTimeout(() => {
-        this.carouselElement.nativeElement.style.transition = '';
-        this.carouselElement.nativeElement.style.transform = 'translateX(0)';
-        this.carouselElement.nativeElement.scrollLeft += firstSlide.offsetWidth;
-        this.carouselElement.nativeElement.removeChild(firstSlide);
-      }, 500); // Attendre la même durée que la transition (0.5s) avant de réinitialiser
-    }
-  
-    scrollRight() {
-      const firstSlide = this.carouselElement.nativeElement.children[0];
-      const lastSlide = this.carouselElement.nativeElement.children[this.carouselElement.nativeElement.children.length - 1];
-  
-      this.carouselElement.nativeElement.insertBefore(lastSlide.cloneNode(true), firstSlide);
-      this.carouselElement.nativeElement.style.transition = '';
-      this.carouselElement.nativeElement.style.transform = `translateX(-${firstSlide.offsetWidth}px)`;
-  
-      // Attendre un délai très court pour permettre la transition, puis réappliquer la transition avec la position réinitialisée et supprimer la dernière diapositive
-      setTimeout(() => {
-       // this.carouselElement.nativeElement.style.transition = 'transform 0.5s ease';
-        this.carouselElement.nativeElement.style.transform = 'translateX(0)';
-        this.carouselElement.nativeElement.scrollLeft -= firstSlide.offsetWidth;
-        this.carouselElement.nativeElement.removeChild(lastSlide);
-      }, 10); // Délai très court pour s'assurer que la transition a le temps de prendre effet
-    }
-
-    
-
+  }
 
   bannerResult!:any [];
   trendingMovieResult!:any[];
@@ -71,22 +36,59 @@ export class HomeComponent implements OnInit,AfterViewInit{
   animationMovieResult: any = [];
   comedyMovieResult: any = [];
   documentaryMovieResult: any = [];
-  sciencefictionMovieResult: any = [];
-  thrillerMovieResult: any = [];
 
   ngOnInit(){
-    this.banner()
-    this.trendingMovie()
-    this.actionMovie()
-    this.adventureMovie()
-    this.animationMovie()
-    this.comedyMovie()
-    this.documentaryMovie()
+    this.banner();
+    this.trendingMovie();
+    this.actionMovie();
+    this.adventureMovie();
+    this.animationMovie();
+    this.comedyMovie();
+    this.documentaryMovie();
     this.randomBanner();
-   
-   
   }
 
+  trendingMovie() {
+    this.service.trendingMovieApiData().pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error fetching trending movies:', error.message);
+        return of({ results: [] }); 
+      })
+    ).subscribe((result) => {
+      this.trendingMovieResult = result.results;
+      console.log(this.trendingMovieResult);
+    });
+  }
+
+
+  detailsMovieResult!:any [];
+  private dialogRef: MatDialogRef<MovieDetailComponent> | null = null;
+  openMovieDetail(movieId: number) {
+    // Si une boîte de dialogue est déjà ouverte, la fermer
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+
+    this.service.getMovieDetails(movieId).subscribe((result) => {
+      this.detailsMovieResult = result;
+      console.log('Le dialogue a été ouvert');
+
+      // Ouvrez la nouvelle boîte de dialogue et conservez la référence
+      this.dialogRef = this.dialog.open(MovieDetailComponent, {
+        data: { movie: this.detailsMovieResult }
+      });
+
+      // Réinitialisez la référence lorsque la boîte de dialogue est fermée
+      this.dialogRef.afterClosed().subscribe(() => {
+        console.log('Le dialogue a été fermé');
+        this.dialogRef = null;
+      });
+    });
+  }
+
+  changeCurrentMovie(id: number) {
+    this.service.changeMovieId(id);
+  }
 
   banner() {
     this.service.bannerApiData().pipe(
@@ -112,24 +114,8 @@ shortOverview(sentence: string): string {
   return index !== -1 ? sentence.slice(0, index + 1) : sentence;
 }
 
-  trendingMovie() {
-    this.service.trendingMovieApiData().pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.error('Error fetching trending movies:', error.message);
-        return of({ results: [] }); 
-      })
-    ).subscribe((result) => {
-      this.trendingMovieResult = result.results;
-    });
-  }
 
-  // trendingMovie(){
-  //   this.service.trendingMovieApiData().subscribe((result) => {
-  //     console.log(result);
-  //     this.trendingMovieResult = result.results;
-  //   })
-  // }
-
+  
  // Action Movie
 actionMovie() {
   this.service.fetchActionMovies().pipe(
@@ -192,3 +178,6 @@ documentaryMovie() {
 
 
 }
+
+
+

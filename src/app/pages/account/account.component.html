@@ -1,4 +1,3 @@
-
 <app-navbar></app-navbar>
 
 <div class="body">
@@ -6,38 +5,63 @@
         <p class="title">Compte</p>
         <p class="message">Informations sur votre compte</p>
 
-        <label>
-            <span>Adresse mail</span>
-            <input required="" placeholder="insérer votre adresse mail" type="email" class="input" value="johndoe@mail.com" disabled="disabled">
-        </label> 
+        <!-- Information Editing Section -->
+        <div *ngIf="!isEditPasswordMode">
+            <label>
+                <span>Adresse mail</span>
+                <input type="email" name="email" class="input" [(ngModel)]="user.email" [disabled]="!isEditMode">
+            </label>
+            <label>
+                <span>Prénom</span>
+                <input type="text" class="input" name="firstName" [(ngModel)]="user.firstName" [disabled]="!isEditMode">
+            </label>
+            <label>
+                <span>Nom</span>
+                <input type="text" class="input" name="lastName" [(ngModel)]="user.lastName"
+                    (ngModelChange)="setChanged()" [disabled]="!isEditMode">
+            </label>
+            <label>
+                <span>Age</span>
+                <input type="text" class="input" name="age" [(ngModel)]="user.age" (ngModelChange)="setChanged()"
+                    [disabled]="!isEditMode">
+            </label>
+        </div>
 
-        <label>
-            <span>Prénom</span>
-            <input required="" placeholder="insérer votre prenom" type="text" class="input" value="{{FirstnameResult}}" disabled="disabled">
-        </label>
+        <!-- Password Editing Section -->
+        <div *ngIf="isEditPasswordMode">
+            <label>
+                <span>Mot de passe actuel</span>
+                <input type="password" class="input" name="currentPassword" [(ngModel)]="user.currentPassword">
+            </label>
+            <label>
+                <span>Nouveau mot de passe</span>
+                <input type="password" class="input" name="newPassword" [(ngModel)]="user.password">
+            </label>
+            <label>
+                <span>Confirmer le nouveau mot de passe</span>
+                <input type="password" class="input" name="confirmPassword" [(ngModel)]="confirmPassword">
+                <div *ngIf="passwordError" style="color:red">
+                    Les mots de passe ne correspondent pas.
+                </div>
+            </label>
+        </div>
 
-        <label>
-            <span>Nom</span>
-            <input required="" placeholder="Insérer votre nom" type="text" class="input" value="{{UserResult}}" disabled="disabled">
-        </label>
+        <!-- Control Buttons -->
+        <div *ngIf="!isEditMode && !isEditPasswordMode" class="column">
+            <button class="submit" (click)="toggleEditInfoMode()">Modifier les informations</button>
+            <button class="submit" (click)="toggleEditPasswordMode()">Modifier le mot de passe</button>
+            <button class="delete">Supprimer le compte</button>
+        </div>
 
-        <label>
-            <span>Age</span>
-            <input required="" placeholder="Insérer votre age" type="text" class="input" value="21" disabled="disabled">
-        </label>
+        <div class="column" *ngIf="isEditMode">
+            <button class="submit" (click)="saveUserInfo()">Sauvegarder les informations</button>
+            <button class="delete" (click)="cancelEditInfo()">Annuler</button>
+        </div>
 
-        <label>
-            <span>Mot de passe</span>
-            <input required="" placeholder="Insérer votre mot de passe" type="password" class="input" value="password123" disabled="disabled">
-        </label>
-        <!-- <label>
-            <input required="" placeholder="" type="password" class="input">
-            <span>Confirmer le mot de passe</span>
-        </label> -->
-
-            <!-- <button class="submit">Sauvgarder</button> -->
-            <button class="submit">Modifier</button>                    <!-- Pas de component en plus ! -->
-            <button class="delete">Supprimer votre compte</button>
+        <div class="column" *ngIf="isEditPasswordMode">
+            <button class="submit" (click)="saveNewPassword()">Sauvegarder le nouveau mot de passe</button>
+            <button class="delete" (click)="cancelEditPassword()">Annuler</button>
+        </div>
 
     </form>
 </div>

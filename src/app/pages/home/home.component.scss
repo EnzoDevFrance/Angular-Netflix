@@ -5,175 +5,12 @@
   margin: 0;
 }
 
-
+body{
+  background-color:  rgba(20, 20, 20);
+}
 
 
 /*-------------------------------- Banner -----------------------------------*/
-
-.banner {
-    position: relative;
-  img{
-    height: 90%;
-    width: 100%;
-    background-image: linear-gradient(transparent,rgb(20,20,20));
-  }
-  .bannerDesc{
-    position: absolute;
-    left: 4%;
-    bottom: 25%;
-    color: white;
-    p{
-      width: 45%;
-    }
-  }
-}
-
-
-/*--------------------------- Final Carou -----------------------------------*/
-
-.wrapp{
-    max-width: screen;
-    overflow: hidden;
-    overflow-x: scroll;
-    position:relative;
-
-    //margin-left: 10px;
-    display: flex;
-    align-items: center;
-
-  i:first-child{
-    left: -2px;
-  }
-  i:last-child{
-      right: -23px;
-  }
-  .carou {
-    white-space: nowrap;
-    display: flex;
-
-img{
-      margin-left: 5px;
-      height: 340px;
-      cursor: pointer;
-      //width: calc(1200px/6);
-      width: 260px;
-
-    }
-    img:first-child{
-      margin-left: 0px;
-    }
-  }
-
-  button{
-    z-index: 10;
-    
-  }
-  .switchRight{
-    position: absolute;
-    left: 50px;
-    height: 100%;
-    width: 45px;
-    line-height: 250px;
-    text-align: center;
-    display : flex;
-    align-items: center;
-  }
-
-}
-
-//  .wrapp::-webkit-scrollbar {
-//    display: none;
-//  }
-
-
-
-/* ----------------------- WEBDEV CSS -------------------------*/
-
-
-$handle-size: 3rem;
-$img-gap: .25rem;
-$items-per-screen: 7;
-$button-width: $handle-size;  // Ici, j'utilise la taille du handle comme la largeur du bouton
-
-.container {
-  width: calc(100vw - 2 * $button-width);
-  overflow: hidden;
-  overflow-x: scroll;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.slider {
-  white-space: nowrap;
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-
-  img {
-    margin-left: 5px;
-    height: 340px;
-    cursor: pointer;
-    width: calc((100% - (#{$items-per-screen} - 1) * 5px) / #{$items-per-screen});  // Ici, j'ai utilisé 5px qui est la marge de gauche des images
-  }
-}
-
-.container::-webkit-scrollbar {
-  display: none;
-}
-
-.handle {
-  border: none;
-  border-radius: 1rem;
-  background-color: rgba(255, 255, 255, .25);
-  z-index: 10;
-  margin: $img-gap 0;
-  width: $handle-size;
-  cursor: pointer;
-  font-size: 5rem;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: white;
-  line-height: 0;
-  transition: background-color 150ms ease-in-out;
-}
-
-.left-handle {
-  left: 0;
-}
-
-.right-handle {
-  right: 0;
-}
-
-.row {
-  .header {
-    display: flex;
-    justify-content: flex-start;
-    padding: .5rem ($img-gap * 2 + $handle-size);
-    align-items: center;
-
-    .title {
-      font-size: 2rem;
-      margin: 0;
-    }
-  }
-}
-
-@media (max-width: 1000px) {
-  .slider {
-    $items-per-screen: 3;  // Pour les écrans plus petits
-    
-    img {
-      width: calc((100% - (#{$items-per-screen} - 1) * 5px) / #{$items-per-screen});
-    }
-  }
-}
-
-
-
-
-
 
 #featured {
   display: flex;
@@ -227,12 +64,12 @@ $button-width: $handle-size;  // Ici, j'utilise la taille du handle comme la lar
     align-items: flex-start;
 
     .content-title {
-      font-size: 4.8vw;
+      font-size: 3vw;
       color: #fff;
     }
 
     .content-description {
-      font-size: 1.8vw;
+      font-size: 1.4vw;
       font-weight: 400;
       color: #fff;
     }
@@ -271,103 +108,160 @@ $button-width: $handle-size;  // Ici, j'utilise la taille du handle comme la lar
     }
   }
 }
+@media (max-width: 992px) {
+  #featured .content-info {
+    width: 40%;
+    
+    .content-title {
+      font-size: 3.5vw;
+    }
+    
+    .content-description {
+      font-size: 1.5vw;
+    }
+    
+    .roww button {
+      font-size: 1rem;
+      padding: 0.6rem;
+      padding-left: 1.4rem;
+      padding-right: 1.9rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #featured .content-info {
+    width: 50%;
+    
+    .content-title{
+      font-size: 3.5vw;
+    }
+    
+    .content-description {
+      font-size: 1.3vw;
+    }
+    
+    .roww button {
+      font-size: 0.85rem;
+      padding: 0.5rem;
+      padding-left: 1.2rem;
+      padding-right: 1.6rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #featured .content-info {
+    width: 60%;
+    
+    .content-title {
+      font-size: 3vw;
+    }
+    
+    .content-description {
+      font-size: 1.1vw;
+    }
+    
+    .roww button {
+      font-size: 0.7rem;
+      padding: 0.4rem;
+      padding-left: 0.8rem;
+      padding-right: 1.2rem;
+    }
+  }
+}
 
 
+/*--------------------------- Slider -----------------------------------*/
 
+.title{
+  margin-left: 50px;
+  color: white;
+}
+$handle-size: 3rem;
+$img-gap: .25rem;
 
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
 
+.container {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
 
+  .slider {
+    --items-per-screen: 7;
+    --slider-index: 0;
+    display: flex;
+    flex-grow: 1;
+    margin: 0 $img-gap;
+    transform: translateX(calc(var(--slider-index) * -100%));
+    transition: transform 250ms ease-in-out;
 
+  > img {
+      flex: 0 0 calc(100% / var(--items-per-screen));
+      max-width: calc(100% / var(--items-per-screen));
+      padding: $img-gap;
+      border-radius: 1rem;
+    }
+  }
 
+  .handle {
+    border: none;
+    border-radius: 1rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, .25);
+    z-index: 10;
+    margin: $img-gap 0;
+    width: $handle-size;
+    cursor: pointer;
+    font-size: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    line-height: 0;
+    transition: background-color 150ms ease-in-out;
 
+    &:hover,
+    &:focus {
+      background-color: rgba(255, 255, 255, .5);
+    }
 
+    .text {
+      transition: transform 150ms ease-in-out;
 
+      &:hover,
+      &:focus {
+        transform: scale(1.2);
+      }
+    }
+  }
 
+  .left-handle {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 
-
-
-
-// $handle-size: 3rem;
-// $img-gap: .25rem;
-// $items-per-screen: 7;
-
-// .container {
-//   width: screen;
-//   //width: calc(100% - 2 * #{$handle-size});
-//   overflow: hidden;
-//   overflow-x: scroll;
-//   position:relative;
-//   //margin-left: 10px;
-//   display: flex;
-//   align-items: center;
-
-//  }
-
-// .slider {
-//   white-space: nowrap;
-//   display: flex;
-//   // display: flex;
-//   transition: transform 0.5s ease-in-out;
-
-//   img {
-//     margin-left: 5px;
-//     height: 340px;
-//     cursor: pointer;
-//     //width: calc(1200px/6);
-//     width: 260px;
-//     // flex: 0 0 calc(100% / var(--items-per-screen));
-//     //  max-width: calc(100% / var(--items-per-screen));
-//     // padding: var(--img-gap);
-//     // height: 100%;
-//     // margin-left: 4px;
-//   }
-// }
-// .container::-webkit-scrollbar {
-//   display: none;
-// }
-
-// .handle {
-//   border: none;
-//   border-radius: 1rem;
-//   background-color: rgba(255, 255, 255, .25);
-//   z-index: 10;
-//   margin: var($img-gap) 0;
-//   width: var($handle-size);
-//   cursor: pointer;
-//   font-size: 5rem;
-//   position: absolute;
-//   top: 50%;
-//   transform: translateY(-50%);
-//   color: white;
-//   line-height: 0;
-//   transition: background-color 150ms ease-in-out;
-// }
-
-// .left-handle {
-//   left: 0;
-// }
-
-// .right-handle {
-//   right: 0;
-// }
-
-// .row {
-//   .header {
-//     display: flex;
-//     justify-content: flex-start;
-//     padding: .5rem calc(var($img-gap) * 2 + var($handle-size));
-//     align-items: center;
-
-//     .title {
-//       font-size: 2rem;
-//       margin: 0;
-//     }
-//   }
-// }
+  .right-handle {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
 
 // @media (max-width: 1000px) {
 //   .slider {
-//     --items-per-screen: 3;
+//     --items-per-screen: 6;
+//   }
+// }
+
+// @media (max-width: 500px) {
+//   .slider {
+//     --items-per-screen: 4;
 //   }
 // }
 
@@ -375,6 +269,15 @@ $button-width: $handle-size;  // Ici, j'utilise la taille du handle comme la lar
 
 
 
- 
+
+
+
+
+
+
+
+
+
+
 
 

@@ -14,8 +14,10 @@ import { ChooseSessionComponent } from './pages/choose-session/choose-session.co
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SwiperModule } from 'swiper/angular';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -30,6 +32,7 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent,
     LoginComponent,
     NavbarComponent,
+    FooterComponent,
     
 
 
@@ -40,9 +43,11 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    SwiperModule,
 
     
-
   ],
   providers: [MovieApiService],
   bootstrap: [AppComponent]

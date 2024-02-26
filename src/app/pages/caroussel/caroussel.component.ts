@@ -1,106 +1,69 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-caroussel',
   templateUrl: './caroussel.component.html',
   styleUrls: ['./caroussel.component.scss']
 })
-export class CarousselComponent {
+export class CarousselComponent implements AfterViewInit{
 
-  @Input() movies: any[] = [];
-  
-  @ViewChild('slider', { static: false }) slider!: ElementRef;
-  
-  ngAfterViewInit() {
-    this.initializeSlider()
-    }
-   
-    activeIndex = 0; // the current page on the slider
-   
-   currentSectionIndex: number = 0;
-   
-    getGroupedChildren(): HTMLElement[][] {
-     const slider = this.slider.nativeElement;
-     const itemsPerScreen = parseInt(getComputedStyle(slider).getPropertyValue("--items-per-screen"));
-   
-     let groups: HTMLElement[][] = [];
-     const children = Array.from(this.slider.nativeElement.children) as HTMLElement[];
-     while (children.length) {
-       groups.push(children.splice(0, itemsPerScreen));
-     }
+  constructor(private renderer: Renderer2, private elementRef: ElementRef){
     
-     return groups;
-   }
-   
-   initializeSlider() {
-     const slider = this.slider.nativeElement;
-     const groupedChildren = this.getGroupedChildren();
-     this.currentSectionIndex = 0;
-   
-     // Supprimer tous les éléments actuels du slider.
-     while (slider.firstChild) {
-       slider.removeChild(slider.firstChild);
-     }
-   
-     // Ajouter les diapositives groupées au slider dans des balises <section>.
-     groupedChildren.forEach(group => {
-       const section = document.createElement('section');
-       group.forEach(child => {
-         section.appendChild(child);
-       });
-        slider.appendChild(section);
-     });
-     
-   }
-   
+  }
 
-  nextSlide() {
-    const sliderElement = this.slider.nativeElement;
-    const firstSlide = sliderElement.children[0];
-  
-    // Cloner le premier élément et le mettre à la fin
-    const clonedSlide = firstSlide.cloneNode(true);
-    sliderElement.appendChild(clonedSlide);
-  
-    // Appliquer la transition
-    sliderElement.style.transition = 'transform 0.5s ease';
-    sliderElement.style.transform = `translateX(-${firstSlide.offsetWidth}px)`;
-  
-    // Une fois la transition terminée, repositionner sans transition et supprimer le slide original
-    setTimeout(() => {
-      sliderElement.style.transition = 'none';
-      sliderElement.style.transform = 'translateX(0)';
-      sliderElement.removeChild(firstSlide);
-    }, 500); // La même durée que la transition
+  @ViewChild('sliderElement') sliderElement!: ElementRef;
+private sliderIndex = 0;
+private totalSlides: number = 0;
+private imageWidth: number = 0; // Pour stocker la largeur d'une image
+private totalItems: number = 0; // Pour stocker le nombre total d'éléments
+private itemsPerScreen: number = 0; // Pour stocker le nombre d'éléments par slide
+
+ngAfterViewInit() {
+   setTimeout(() => {
+    // Récupérer le nombre total d'éléments dans le slider
+   this.totalItems = this.sliderElement.nativeElement.children.length;
+   // Récupérer la largeur d'une image (en supposant que toutes les images ont la même largeur)
+   this.imageWidth = this.sliderElement.nativeElement.children[0].offsetWidth;
+   // Récupérer le nombre d'éléments par slide
+   this.itemsPerScreen = parseInt(getComputedStyle(this.sliderElement.nativeElement).getPropertyValue('--items-per-screen'));
+   // Calculer le nombre total de slides
+   this.totalSlides = Math.ceil(this.totalItems / this.itemsPerScreen);
+},2000);
+
+}
+
+scrollR() {
+  if (this.sliderIndex < this.totalSlides - 1) {
+    this.sliderIndex++;
+  } else {
+    this.sliderIndex = 0;
   }
-  
-  
-  previousSlide() {
-    const sliderElement = this.slider.nativeElement;
-    const firstSlide = sliderElement.children[0];
-    const lastSlide = sliderElement.children[sliderElement.children.length - 1];
-  
-    // Cloner le dernier élément et le mettre au début
-    const clonedSlide = lastSlide.cloneNode(true);
-    sliderElement.insertBefore(clonedSlide, firstSlide);
-  
-    // Déplacer le carrousel sans animation pour le préparer à la transition
-    sliderElement.style.transition = 'none';
-    sliderElement.style.transform = `translateX(-${firstSlide.offsetWidth}px)`;
-  
-    // Forcer un recalcul pour s'assurer que la transformation précédente est appliquée
-    getComputedStyle(sliderElement).transform;
-  
-    // Appliquer la transition
-    sliderElement.style.transition = 'transform 0.5s ease';
-    sliderElement.style.transform = 'translateX(0)';
-  
-    // Supprimer le slide original (pas le cloné) après la transition
-    setTimeout(() => {
-      sliderElement.removeChild(lastSlide);
-      sliderElement.style.transition = '';
-    }, 500); // La même durée que la transition
+  this.updateSliderPosition();
+}
+
+scrollL() {
+  if (this.sliderIndex > 0) {
+    this.sliderIndex--;
+  } else {
+    this.sliderIndex = this.totalSlides - 1;
   }
+  this.updateSliderPosition();
+}
+
+private updateSliderPosition() {
+   let distanceToSlide = 0;
+
+   if (this.sliderIndex === this.totalSlides - 1 && this.totalItems % this.itemsPerScreen !== 0) {
+     // Si c'est la dernière diapositive et qu'il y a moins d'images que itemsPerScreen
+     const remainingImages = this.totalItems % this.itemsPerScreen;
+     distanceToSlide = this.sliderIndex * this.imageWidth * this.itemsPerScreen - (this.itemsPerScreen - remainingImages) * this.imageWidth;
+   } else {
+     distanceToSlide = this.sliderIndex * this.imageWidth * this.itemsPerScreen;
+   }
+
+   this.sliderElement.nativeElement.style.transform = `translateX(-${distanceToSlide}px)`;
+}
 
 
 }
